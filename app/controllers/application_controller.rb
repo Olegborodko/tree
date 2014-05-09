@@ -28,19 +28,25 @@ class ApplicationController < ActionController::Base
 
   	mas_dot_close=[] #точки которые нужно закрыть
   	mas_dot_open=[] #точки которые нужно открыть
+    mas_dot_contains=[] #точки которые содержат ещё элементы
 
   	initialization.each do |dot|
   		if dot_left_index<dot[:left_index] and
   		   dot_right_index>dot[:right_index]
 
-  		   mas_dot_close.push(dot[:id])
+           mas_dot_close.push(dot[:id])
+
+           if dot[:right_index]-dot[:left_index]!=1 and dot_left_index==1
+           mas_dot_contains.push(dot[:id])
+           end
+
   		   if dot_level==dot[:level]-1
   		   mas_dot_open.push(dot[:id])	
   		   end
   		end	
 
   	end
-  	return mas_dot_open, mas_dot_close, id_open
+  	return mas_dot_open, mas_dot_close, id_open, mas_dot_contains
   end
   helper_method :open_close_dot
 
