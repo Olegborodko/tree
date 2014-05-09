@@ -1,0 +1,76 @@
+<!------------------------>
+<%=  %>
+<!------------------------>
+
+<% @dots_hash.each do |dot| %>
+
+<div id='<%= dot[:id] %>' onclick='div_visibility(<%= open_close_dot(dot[:id]) %>)' class='tree' style='display:none' title='<%= open_close_dot(dot[:id])[0].length==0 ? "-" : "+" %>'>
+
+<div class='indented'><%= dot[:level]-1==0 ? '' : '...'*dot[:level]*3 %></div>
+
+<div id='plus_<%= dot[:id] %>' style='float:left'>
+<script>
+document.writeln(document.getElementById(<%= dot[:id] %>).title);
+</script>
+</div>
+
+<%= dot[:name] %>
+
+</div>
+<% end %>
+
+
+<script>
+//alert()
+
+document.getElementById(1).style.display='table';
+
+function div_visibility(open_close_dot)
+{
+
+	//состояние элемента на данный момент
+	state_dot=document.getElementById(open_close_dot[0][0]).style.display
+
+	if (document.getElementById(open_close_dot[2]).title=='+') {
+		document.getElementById(open_close_dot[2]).title='-';
+
+		document.getElementById('plus_'+open_close_dot[2]).innerHTML='-';
+
+	}
+	else
+	{
+		document.getElementById(open_close_dot[2]).title='+';
+
+		document.getElementById('plus_'+open_close_dot[2]).innerHTML='+';
+	}
+
+	//alert('');
+
+	if (state_dot=='none') {
+	for(i = 0; i < open_close_dot[0].length; i += 1) {
+		//alert(document.getElementById(open_close_dot[0][i]).style.display);
+
+		//если элемент не видимый
+			document.getElementById(open_close_dot[0][i]).style.display='table'
+
+	}}
+//----------------------------
+	if (state_dot=='table') {
+	for(i = 0; i < open_close_dot[1].length; i += 1) {
+		//alert(document.getElementById(open_close_dot[0][i]).style.display);
+
+		//если элемент не видимый
+			document.getElementById(open_close_dot[1][i]).style.display='none'
+
+	}}
+
+}
+
+
+</script>
+
+
+<br><br>
+<%= @m %>
+<br><br>
+<%= @dots_hash %>

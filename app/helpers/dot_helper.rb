@@ -1,0 +1,2 @@
+module DotHelper
+end
