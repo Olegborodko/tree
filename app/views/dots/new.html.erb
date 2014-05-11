@@ -1,0 +1,15 @@
+<%= form_tag(controller: "dots", action: "create") do %>
+<%= label_tag :name, 'имя точки' %>
+<%= text_field_tag :name %>
+<br>
+<%= label_tag :parent, 'родитель' %>
+
+<% dot_mas= options_from_collection_for_select(Dot.all, :id, :name) %>
+<%= select_tag( :parent, dot_mas, class: 'select') %>
+<%= submit_tag "добавить", class: 'button' %>
+
+<% end %>
+
+<% if flash[:notice] %>
+<%= flash[:notice] %>
+<% end %>
