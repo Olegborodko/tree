@@ -22,7 +22,7 @@ Relation.delete_all
 Relation.create(id: 1, dot_id: 1, left_index: 1, right_index: 22, level: 1)
 Relation.create(id: 2, dot_id: 2, left_index: 2, right_index: 9, level: 2)
 Relation.create(id: 3, dot_id: 3, left_index: 10, right_index: 15, level: 2)
-Relation.create(id: 4, dot_id: 4, left_index: 16, right_index: 21, level: 2)
+Relation.create(id: 4, dot_id: 4, left_index: 16, right_index: 21, elvel: 2)
 Relation.create(id: 5, dot_id: 5, left_index: 3, right_index: 4, level: 3)
 Relation.create(id: 6, dot_id: 6, left_index: 5, right_index: 8, level: 3)
 Relation.create(id: 7, dot_id: 7, left_index: 11, right_index: 14, level: 3)

@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   	@dots_hash=@dots_hash.sort_by{ |elem| elem[:left_index] }  #сортируем для отображения
     
   end
+  helper_method :initialization
 
   def open_close_dot(id_open)
 
