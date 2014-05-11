@@ -1,7 +1,9 @@
 Tree2::Application.routes.draw do
   root 'dots#index'
+  get 'dots/delete_show', to: 'dots#delete_show'
+  post 'dots/delete', to: 'dots#delete'
   resources :dots
-  #get 'select', to: 'dots#select'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,8 @@
+<%= form_tag(controller: "dots", action: "delete") do %>
+<%= label_tag :parent, 'родитель' %>
+
+<% dot_mas= options_from_collection_for_select(Dot.all, :id, :name) %>
+<%= select_tag( :parent, dot_mas, class: 'select') %>
+<%= submit_tag "удалить", class: 'button' %>
+
+<% end %>

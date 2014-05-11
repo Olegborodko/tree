@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     
   end
   helper_method :initialization
-
+#точки которые закрыть и открыть
   def open_close_dot(id_open)
 
   	dot_click=initialization.select {|x| x[:id]==id_open} #нажатая точка
