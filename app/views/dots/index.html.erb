@@ -88,7 +88,9 @@ function div_visibility(open_close_dot)
 
 <br><br>
 <%= link_to "добавить элемент", {controller: "dots",  action: "new"}, class: 'button' %>
+<% if @dots_hash.length!=0 %>
 <br><br>
 <%= link_to "удалить элемент", "dots/delete_show", class: 'button' %>
+<% end %>
 <br><br>
 <%= @dots_hash %>

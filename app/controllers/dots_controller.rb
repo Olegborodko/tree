@@ -16,11 +16,13 @@ def create
 
     dot=Dot.new
     dot.name=name
+    dot.id=1
 
     relation = Relation.new
     relation.left_index=1
     relation.right_index = 2
     relation.level = 1
+    relation.id=1
 
     dot.relation=relation
     @ok_dot=dot.save
@@ -181,6 +183,11 @@ def delete
 
 	dots_hash=initialization
 
+  #dot_=dots_hash.select {|x| x[:id]==parent}
+  #dot_=dot_[0][:level]
+
+  if parent!=0  #<--
+
 	dots_hash.each.with_index do |e, i| 
     if e[:id] == parent
     @position=i
@@ -220,6 +227,11 @@ def delete
 	  @ok_relation=relation.save
   	end
 
+    #else #<--
+    #очистить auto_increment
+    #Dot.delete_all
+    #Relation.delete_all
+    end
     #render json: @m
   	redirect_to :root
 
