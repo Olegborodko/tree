@@ -1,5 +1,12 @@
 
-<%  %>
+
+<% dot_start=@dots_hash.select {|x| x[:level]==1} %>
+<% if dot_start.length>0 %>
+<% dot_start=dot_start[0][:id] %>
+<% end %>
+<script>
+var dot_start=<%= dot_start %>;
+</script>
 
 
 <% @dots_hash.each do |dot| %>
@@ -9,7 +16,9 @@
 <div class='indented'><%= dot[:level]-1==0 ? '' : '...'*dot[:level]*3 %></div>
 
 <div id='plus_<%= dot[:id] %>' style='float:left'>
-<%= open_close_dot(1)[3].include?(dot[:id]) ? '+' : '' %>
+
+<%= open_close_dot(dot_start)[3].include?(dot[:id]) ? '+' : '' %>
+
 </div>
 
 <%= dot[:name] %>
@@ -17,12 +26,11 @@
 </div>
 <% end %>
 
-
 <script>
 //alert()
 
-document.getElementById('dot_1').style.display='table';
-document.getElementById('plus_1').innerHTML='+';
+document.getElementById('dot_'+dot_start).style.display='table';
+//document.getElementById('plus_'+dot_start).innerHTML='+';
 
 function div_visibility(open_close_dot)
 {

@@ -11,6 +11,21 @@ def create
   	name=params[:name]
   	parent=params[:parent].to_i
 
+    if parent==0
+    @ok_relation=true
+
+    dot=Dot.new
+    dot.name=name
+
+    relation = Relation.new
+    relation.left_index=1
+    relation.right_index = 2
+    relation.level = 1
+
+    dot.relation=relation
+    @ok_dot=dot.save
+    else #->
+
   	#render :json => parent;return
 
   	@dots_hash=initialization
@@ -39,7 +54,7 @@ def create
   
 
 
-  	dot=Dot.new
+  dot=Dot.new
 	dot.name=dot_new[0][:name]
 
 	relation = Relation.new
@@ -61,6 +76,8 @@ def create
   	end
   	end
 
+    end #->
+
   	if @ok_relation==true and @ok_dot==true
   	redirect_to :root
   	else
@@ -72,7 +89,7 @@ end
 
 def left_right_initialization(dots_hash)
     index=0
-	@left_index=1 #определяем начальн. значения 
+	  @left_index=1 #определяем начальн. значения 
   	@right_index=1
 
   	
@@ -130,7 +147,7 @@ def left_right_initialization(dots_hash)
 	@mas_right_other=[]
   	end
 
-  	if index==@dots_hash.length-1 
+  	if index==dots_hash.length-1 
 
   	@right_index=dot[:left_index]+1	
 
@@ -185,23 +202,25 @@ def delete
   	d.destroy
   	end
 
+  	#удаляем саму точку с бд
+  	d=Dot.find(parent)
+  	d.destroy
 
   	#удаляем с хеша сперва все эти точки
   	dots_hash.delete_if { |a| m[1].include?(a[:id]) }
 
-  	#index=0
-  	#dots_hash.each do |dot|
-  	#if m[1].include?(dot[:id])
-  	#	puts dot[:id]
-  	#dots_hash.delete(dot)	
-  	#puts dot
-  	#end
-  	#index+=1
-  	#end
+  	#перерисовываем left_index right_index в хеше
+  	dots_hash=left_right_initialization(dots_hash)
 
-  	#перерисовываем left_index right_index согласно бд
-  	left_right_initialization(dots_hash)
+  	#меняем бд
+  	dots_hash.each do |dot_| 	
+  	relation = Relation.find(dot_[:id])
+	  relation.left_index = dot_[:left_index]
+	  relation.right_index = dot_[:right_index]
+	  @ok_relation=relation.save
+  	end
 
+    #render json: @m
   	redirect_to :root
 
 	#render json: dots_hash.to_s

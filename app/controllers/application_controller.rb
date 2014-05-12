@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
            mas_dot_close.push(dot[:id])
 
-           if dot[:right_index]-dot[:left_index]!=1 and dot_left_index==1
+           if dot[:right_index]-dot[:left_index]!=1 and dot_level==1
            mas_dot_contains.push(dot[:id])
            end
 
@@ -47,7 +47,10 @@ class ApplicationController < ActionController::Base
   		end	
 
   	end
+
   	return mas_dot_open, mas_dot_close, id_open, mas_dot_contains
+
+
   end
   helper_method :open_close_dot
 
